@@ -1,35 +1,51 @@
 import java.util.Scanner;
+import java.util.Stack;
 
-class CaseInsensitivePalindrome {
+// Palindrome service class
+class PalindromeChecker {
+
+    // Method to check palindrome
+    public boolean checkPalindrome(String str) {
+
+        if (str == null || str.length() == 0)
+            return false;
+
+        // Normalize string: remove spaces, lowercase
+        String normalized = str.replaceAll("\\s+", "").toLowerCase();
+
+        // Using Stack internally
+        Stack<Character> stack = new Stack<>();
+        for (char ch : normalized.toCharArray()) {
+            stack.push(ch);
+        }
+
+        for (char ch : normalized.toCharArray()) {
+            if (ch != stack.pop()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+
+// Main program (no public class)
+class Main {
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter a string: ");
-        String str = sc.nextLine();
+        String input = sc.nextLine();
 
-        // Normalize string: remove spaces & convert to lowercase
-        String normalized = str.toLowerCase().replaceAll("\\s+", "");
+        // Create service instance
+        PalindromeChecker checker = new PalindromeChecker();
 
-        int start = 0;
-        int end = normalized.length() - 1;
-        boolean isPalindrome = true;
-
-        // Two-pointer comparison
-        while (start < end) {
-            if (normalized.charAt(start) != normalized.charAt(end)) {
-                isPalindrome = false;
-                break;
-            }
-            start++;
-            end--;
-        }
-
-        // Display result
-        if (isPalindrome) {
-            System.out.println("The string is a Palindrome (case-insensitive, space-ignored).");
+        // Check palindrome
+        if (checker.checkPalindrome(input)) {
+            System.out.println("The string is a Palindrome.");
         } else {
-            System.out.println("The string is NOT a Palindrome (case-insensitive, space-ignored).");
+            System.out.println("The string is NOT a Palindrome.");
         }
 
         sc.close();
