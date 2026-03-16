@@ -1,22 +1,6 @@
 import java.util.Scanner;
 
-class RecursivePalindrome {
-
-    // Recursive function
-    public static boolean isPalindrome(String str, int start, int end) {
-        // Base case
-        if (start >= end) {
-            return true;
-        }
-
-        // Compare start and end characters
-        if (str.charAt(start) != str.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call for inner substring
-        return isPalindrome(str, start + 1, end - 1);
-    }
+class CaseInsensitivePalindrome {
 
     public static void main(String[] args) {
 
@@ -24,11 +8,28 @@ class RecursivePalindrome {
         System.out.print("Enter a string: ");
         String str = sc.nextLine();
 
-        // Check palindrome
-        if (isPalindrome(str, 0, str.length() - 1)) {
-            System.out.println("The string is a Palindrome.");
+        // Normalize string: remove spaces & convert to lowercase
+        String normalized = str.toLowerCase().replaceAll("\\s+", "");
+
+        int start = 0;
+        int end = normalized.length() - 1;
+        boolean isPalindrome = true;
+
+        // Two-pointer comparison
+        while (start < end) {
+            if (normalized.charAt(start) != normalized.charAt(end)) {
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
+        }
+
+        // Display result
+        if (isPalindrome) {
+            System.out.println("The string is a Palindrome (case-insensitive, space-ignored).");
         } else {
-            System.out.println("The string is NOT a Palindrome.");
+            System.out.println("The string is NOT a Palindrome (case-insensitive, space-ignored).");
         }
 
         sc.close();
