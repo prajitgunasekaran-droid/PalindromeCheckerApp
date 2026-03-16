@@ -1,9 +1,8 @@
 import java.util.Scanner;
-import java.util.Queue;
+import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Stack;
 
-class QueueStackPalindrome {
+class DequePalindrome {
 
     public static void main(String[] args) {
 
@@ -11,26 +10,24 @@ class QueueStackPalindrome {
         System.out.print("Enter a string: ");
         String str = sc.nextLine();
 
-        Queue<Character> queue = new LinkedList<>();
-        Stack<Character> stack = new Stack<>();
+        Deque<Character> deque = new LinkedList<>();
 
-        // Enqueue and push characters
+        // Insert characters into deque
         for (int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
-            queue.add(ch);  // FIFO
-            stack.push(ch); // LIFO
+            deque.addLast(str.charAt(i));
         }
 
         boolean isPalindrome = true;
 
-        // Compare dequeue vs pop
-        while (!queue.isEmpty()) {
-            if (!queue.remove().equals(stack.pop())) {
+        // Compare front and rear
+        while (deque.size() > 1) {
+            if (!deque.removeFirst().equals(deque.removeLast())) {
                 isPalindrome = false;
                 break;
             }
         }
 
+        // Display result
         if (isPalindrome) {
             System.out.println("The string is a Palindrome.");
         } else {
