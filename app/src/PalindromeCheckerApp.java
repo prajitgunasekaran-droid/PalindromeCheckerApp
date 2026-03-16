@@ -1,6 +1,7 @@
 import java.util.Scanner;
+import java.util.Stack;
 
-class CharArrayPalindrome {
+class StackPalindrome {
 
     public static void main(String[] args) {
 
@@ -9,21 +10,24 @@ class CharArrayPalindrome {
         System.out.print("Enter a string: ");
         String str = sc.nextLine();
 
-        char[] arr = str.toCharArray();
+        Stack<Character> stack = new Stack<>();
 
-        int start = 0;
-        int end = arr.length - 1;
+        // Push characters into stack
+        for (int i = 0; i < str.length(); i++) {
+            stack.push(str.charAt(i));
+        }
+
         boolean isPalindrome = true;
 
-        while (start < end) {
-            if (arr[start] != arr[end]) {
+        // Pop characters and compare
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) != stack.pop()) {
                 isPalindrome = false;
                 break;
             }
-            start++;
-            end--;
         }
 
+        // Print result
         if (isPalindrome) {
             System.out.println("The string is a Palindrome.");
         } else {
